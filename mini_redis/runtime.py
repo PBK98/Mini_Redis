@@ -2,27 +2,31 @@
 
 import sys
 
-try:
-    from . import errors
-except ImportError:
-    import errors
+SUCCESS_EXIT_CODE = 0
+KEYBOARD_INTERRUPT_EXIT_CODE = 1
+COMMAND_ERROR_EXIT_CODE = 2
+
+
+def is_error_response(response):
+    """실행 결과가 Redis 스타일 에러 응답인지 확인한다."""
+    return response.startswith("(error)")
 
 
 class ReplRuntime:
     """REPL의 종료 코드와 입력 예외 처리를 담당한다."""
 
     def __init__(self):
-        self.exit_code = errors.SUCCESS_EXIT_CODE
+        self.exit_code = SUCCESS_EXIT_CODE
 
     def record_output(self, output):
         """출력 결과에 에러가 포함되어 있으면 종료 코드를 갱신한다."""
-        if errors.is_error_response(output):
-            self.exit_code = errors.COMMAND_ERROR_EXIT_CODE
+        if is_error_response(output):
+            self.exit_code = COMMAND_ERROR_EXIT_CODE
 
     def handle_keyboard_interrupt(self):
         """Ctrl+C 입력을 처리하고 지정된 코드로 종료한다."""
         print("\n강제 종료되었습니다.")
-        sys.exit(errors.KEYBOARD_INTERRUPT_EXIT_CODE)
+        sys.exit(KEYBOARD_INTERRUPT_EXIT_CODE)
 
     def handle_eof(self):
         """입력 종료 시 안내 문구를 출력한다."""
