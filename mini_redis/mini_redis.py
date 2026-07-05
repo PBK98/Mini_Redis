@@ -3,10 +3,12 @@
 import time
 
 try:
+    from . import redis_errors
     from .hash_map import HashMap
     from .linked_list import DoublyLinkedList
     from .min_heap import MinHeap
 except ImportError:
+    import redis_errors
     from hash_map import HashMap
     from linked_list import DoublyLinkedList
     from min_heap import MinHeap
@@ -38,7 +40,7 @@ class MiniRedis:
         entry_memory = self._entry_size(key, value)
 
         if self.maxmemory > 0 and entry_memory > self.maxmemory:
-            return "(error) OOM command not allowed when used_memory > 'maxmemory'"
+            return redis_errors.out_of_memory()
 
         entry = self.store.get(key)
         if entry is None:
@@ -96,7 +98,7 @@ class MiniRedis:
     def config_set_maxmemory(self, value_text):
         value = self._parse_non_negative_int(value_text)
         if value is None:
-            return "(error) ERR value is not an integer or out of range"
+            return redis_errors.integer_out_of_range()
 
         self.maxmemory = value
         self._evict_until_within_limit()
@@ -113,7 +115,7 @@ class MiniRedis:
     def expire(self, key, seconds_text):
         seconds = self._parse_int(seconds_text)
         if seconds is None:
-            return "(error) ERR value is not an integer or out of range"
+            return redis_errors.integer_out_of_range()
 
         self._delete_if_expired(key)
         entry = self.store.get(key)
