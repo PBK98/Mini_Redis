@@ -3,11 +3,11 @@
 import shlex
 
 try:
-    from . import errors
+    from . import redis_errors
     from .mini_redis import MiniRedis
     from .runtime import ReplRuntime
 except ImportError:
-    import errors
+    import redis_errors
     from mini_redis import MiniRedis
     from runtime import ReplRuntime
 
@@ -57,7 +57,7 @@ class CommandParser:
         try:
             parts = shlex.split(line)
         except ValueError as error:
-            return ParsedCommand(error=errors.parse_error(error))
+            return ParsedCommand(error=redis_errors.parse_error(error))
 
         return ParsedCommand(parts=parts)
 
@@ -94,7 +94,7 @@ class CommandProcessor:
         if spec is None:
             if self.parser.has_command(parsed.parts[0]):
                 return self._wrong_args(parsed.parts[0].upper())
-            return errors.unknown_command(parsed.parts[0])
+            return redis_errors.unknown_command(parsed.parts[0])
 
         if not spec.validate(parsed.parts):
             return self._wrong_args(parsed.parts[0].upper())
@@ -120,7 +120,7 @@ class CommandProcessor:
         ]
 
     def _wrong_args(self, command):
-        return errors.wrong_arguments(command)
+        return redis_errors.wrong_arguments(command)
 
 
 def run_repl():
