@@ -1,4 +1,4 @@
-"""Core Mini Redis command execution logic."""
+"""Mini Redis 명령 실행 핵심 로직."""
 
 import time
 
@@ -13,7 +13,7 @@ except ImportError:
 
 
 class RedisEntry:
-    """Value plus metadata needed for memory accounting, LRU, and TTL."""
+    """값과 메모리 계산, LRU, TTL 관리에 필요한 메타데이터."""
 
     def __init__(self, key, value, lru_node):
         self.key = key
@@ -23,7 +23,7 @@ class RedisEntry:
 
 
 class MiniRedis:
-    """In-memory key-value store with Redis-like string commands."""
+    """Redis 스타일 문자열 명령어를 지원하는 인메모리 키-값 저장소."""
 
     def __init__(self):
         self.store = HashMap()
@@ -126,7 +126,7 @@ class MiniRedis:
 
         expire_at = time.time() + seconds
         entry.expire_at = expire_at
-        # Old heap records are ignored later if they no longer match entry.expire_at.
+        # 오래된 힙 레코드는 entry.expire_at과 더 이상 맞지 않으면 나중에 무시한다.
         self.expirations.push((expire_at, key))
         return "(integer) 1"
 

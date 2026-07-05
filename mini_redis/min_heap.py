@@ -1,8 +1,8 @@
-"""Minimum heap for TTL expiration records."""
+"""TTL 만료 레코드를 관리하는 최소 힙."""
 
 
 class MinHeap:
-    """Array-backed min heap storing comparable items like (expire_at, key)."""
+    """(expire_at, key)처럼 비교 가능한 값을 저장하는 배열 기반 최소 힙."""
 
     def __init__(self):
         self.items = []

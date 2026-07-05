@@ -1,4 +1,4 @@
-"""Small regression tests for the Mini Redis assignment."""
+"""Mini Redis 과제를 위한 작은 회귀 테스트."""
 
 import time
 import unittest

@@ -1,2 +1,1 @@
-"""Mini Redis package."""
-
+"""Mini Redis 패키지."""

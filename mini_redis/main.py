@@ -1,4 +1,4 @@
-"""Executable entry point for the Mini Redis CLI."""
+"""Mini Redis CLI 실행 진입점."""
 
 try:
     from .cli import run_repl

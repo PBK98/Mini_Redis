@@ -1,12 +1,12 @@
-"""Hash map implemented with separate chaining.
+"""체이닝 방식으로 구현한 해시맵.
 
-The implementation keeps the mission's core data-structure behavior visible
-instead of delegating key lookup to Python's built-in mapping types.
+Python 내장 매핑 타입에 키 조회를 맡기지 않고,
+과제의 핵심 자료구조 동작이 코드에 드러나도록 구현한다.
 """
 
 
 class HashNode:
-    """A single key/value node stored inside a bucket chain."""
+    """버킷 체인 안에 저장되는 단일 키/값 노드."""
 
     def __init__(self, key, value):
         self.key = key
@@ -15,7 +15,7 @@ class HashNode:
 
 
 class HashMap:
-    """Hash map with custom hash function, chaining, and automatic resizing."""
+    """직접 만든 해시 함수, 체이닝, 자동 확장을 사용하는 해시맵."""
 
     def __init__(self, initial_capacity=8):
         self.capacity = initial_capacity
@@ -23,7 +23,7 @@ class HashMap:
         self.count = 0
 
     def _hash(self, key):
-        """A simple polynomial rolling hash over UTF-8 bytes."""
+        """UTF-8 바이트를 사용하는 단순 다항 롤링 해시."""
         total = 0
         for byte in key.encode("utf-8"):
             total = (total * 31 + byte) % self.capacity
@@ -51,7 +51,7 @@ class HashMap:
         self.count = old_count
 
     def put(self, key, value):
-        """Insert or overwrite a value by key."""
+        """키에 해당하는 값을 삽입하거나 덮어쓴다."""
         index = self._hash(key)
         current = self.buckets[index]
 
@@ -68,7 +68,7 @@ class HashMap:
         self._resize_if_needed()
 
     def get(self, key):
-        """Return the stored value, or None when absent."""
+        """저장된 값을 반환하고, 없으면 None을 반환한다."""
         index = self._hash(key)
         current = self.buckets[index]
 
@@ -80,7 +80,7 @@ class HashMap:
         return None
 
     def remove(self, key):
-        """Remove a key and return its value, or None when absent."""
+        """키를 삭제하고 값을 반환한다. 없으면 None을 반환한다."""
         index = self._hash(key)
         current = self.buckets[index]
         previous = None
@@ -102,7 +102,7 @@ class HashMap:
         return self.get(key) is not None
 
     def keys(self):
-        """Return all keys as a plain list."""
+        """전체 키를 일반 리스트로 반환한다."""
         result = []
         for bucket in self.buckets:
             current = bucket

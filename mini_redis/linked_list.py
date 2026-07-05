@@ -1,8 +1,8 @@
-"""Doubly linked list used for O(1) LRU ordering."""
+"""O(1) LRU 순서 관리에 사용하는 이중 연결 리스트."""
 
 
 class ListNode:
-    """A node with prev, next, and data fields as required by the mission."""
+    """과제 요구사항에 맞게 prev, next, data 필드를 가진 노드."""
 
     def __init__(self, data):
         self.prev = None
@@ -11,7 +11,7 @@ class ListNode:
 
 
 class DoublyLinkedList:
-    """Doubly linked list with constant-time insert, remove, and move."""
+    """삽입, 삭제, 이동을 상수 시간에 수행하는 이중 연결 리스트."""
 
     def __init__(self):
         self.head = None
@@ -19,7 +19,7 @@ class DoublyLinkedList:
         self.length = 0
 
     def insert_front(self, data):
-        """Insert data at the front and return the created node."""
+        """데이터를 맨 앞에 삽입하고 생성된 노드를 반환한다."""
         node = ListNode(data)
         node.next = self.head
 
@@ -33,7 +33,7 @@ class DoublyLinkedList:
         return node
 
     def insert_back(self, data):
-        """Insert data at the back and return the created node."""
+        """데이터를 맨 뒤에 삽입하고 생성된 노드를 반환한다."""
         node = ListNode(data)
         node.prev = self.tail
 
@@ -47,19 +47,19 @@ class DoublyLinkedList:
         return node
 
     def remove_front(self):
-        """Remove and return front data, or None when empty."""
+        """맨 앞 데이터를 삭제해 반환하고, 비어 있으면 None을 반환한다."""
         if self.head is None:
             return None
         return self.remove_node(self.head)
 
     def remove_back(self):
-        """Remove and return back data, or None when empty."""
+        """맨 뒤 데이터를 삭제해 반환하고, 비어 있으면 None을 반환한다."""
         if self.tail is None:
             return None
         return self.remove_node(self.tail)
 
     def remove_node(self, node):
-        """Remove a known node in O(1) and return its data."""
+        """이미 알고 있는 노드를 O(1)에 삭제하고 데이터를 반환한다."""
         if node is None:
             return None
 
@@ -80,7 +80,7 @@ class DoublyLinkedList:
         return data
 
     def move_to_front(self, node):
-        """Move an existing node to the front in O(1)."""
+        """기존 노드를 O(1)에 맨 앞으로 이동한다."""
         if node is None or node is self.head:
             return node
 

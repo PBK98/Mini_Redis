@@ -1,4 +1,4 @@
-"""Command parser and REPL for Mini Redis."""
+"""Mini Redis 명령어 파서와 REPL."""
 
 import shlex
 
@@ -9,7 +9,7 @@ except ImportError:
 
 
 class CommandProcessor:
-    """Translate CLI tokens into MiniRedis method calls."""
+    """CLI 입력 토큰을 MiniRedis 메서드 호출로 변환한다."""
 
     def __init__(self, database=None):
         self.database = database or MiniRedis()
@@ -82,7 +82,7 @@ class CommandProcessor:
 
 
 def run_repl():
-    """Start the interactive mini-redis prompt."""
+    """대화형 mini-redis 프롬프트를 시작한다."""
     processor = CommandProcessor()
 
     while True:
