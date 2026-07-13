@@ -3,10 +3,7 @@
 import time
 import unittest
 
-try:
-    from .cli import CommandProcessor
-except ImportError:
-    from cli import CommandProcessor
+from mini_redis.cli import CommandProcessor
 
 
 class MiniRedisTest(unittest.TestCase):
