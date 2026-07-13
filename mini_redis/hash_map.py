@@ -48,7 +48,13 @@ class HashMap:
                 self.put(current.key, current.value)
                 current = current.next
 
-        self.count = old_count
+        if self.count != old_count:
+            raise RuntimeError(
+                "해시맵 리사이즈 중 키 개수가 일치하지 않습니다. 리사이즈 전: "
+                + str(old_count)
+                + ", 리사이즈 후: "
+                + str(self.count)
+            )
 
     def put(self, key, value):
         """키에 해당하는 값을 삽입하거나 덮어쓴다."""
