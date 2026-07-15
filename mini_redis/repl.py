@@ -8,7 +8,7 @@ except ImportError:
     from runtime import ReplRuntime
 
 
-def run_repl():
+def run_repl() -> None:
     """대화형 mini-redis 프롬프트를 시작한다."""
     processor = CommandProcessor()
     runtime = ReplRuntime()

@@ -1,17 +1,21 @@
 """TTL 만료 레코드를 관리하는 최소 힙."""
 
+from typing import List, Optional, Tuple
+
+HeapItem = Tuple[float, str]
+
 
 class MinHeap:
     """(expire_at, key)처럼 비교 가능한 값을 저장하는 배열 기반 최소 힙."""
 
-    def __init__(self):
-        self.items = []
+    def __init__(self) -> None:
+        self.items: List[HeapItem] = []
 
-    def push(self, item):
+    def push(self, item: HeapItem) -> None:
         self.items.append(item)
         self._heapify_up(len(self.items) - 1)
 
-    def pop(self):
+    def pop(self) -> Optional[HeapItem]:
         if not self.items:
             return None
 
@@ -22,15 +26,15 @@ class MinHeap:
             self._heapify_down(0)
         return root
 
-    def peek(self):
+    def peek(self) -> Optional[HeapItem]:
         if not self.items:
             return None
         return self.items[0]
 
-    def size(self):
+    def size(self) -> int:
         return len(self.items)
 
-    def _heapify_up(self, index):
+    def _heapify_up(self, index: int) -> None:
         while index > 0:
             parent = (index - 1) // 2
             if self.items[parent] <= self.items[index]:
@@ -38,7 +42,7 @@ class MinHeap:
             self.items[parent], self.items[index] = self.items[index], self.items[parent]
             index = parent
 
-    def _heapify_down(self, index):
+    def _heapify_down(self, index: int) -> None:
         length = len(self.items)
 
         while True:
